@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+    <EditText
+        android:hint="Email"
+        android:layout_centerInParent="true"
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="232dp" />
+    <EditText
+        android:hint="Password"
+        android:id="@+id/editText2"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="321dp" />
+    <TextView
+        android:onClick="backToSignUp"
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="24dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:text="New here? Sign Up!"/>
+    <Button
+        android:id="@+id/back_button"
+        android:onClick="signInUsingMail"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign In"/>
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:padding="16dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
