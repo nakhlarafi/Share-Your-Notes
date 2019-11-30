@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         passText = (EditText) findViewById(R.id.editText2);
         signIn = (TextView) findViewById(R.id.sign_in);
         member = new Members();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Members");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Members");
 
     }
 
@@ -63,9 +63,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"Unsuccessful!",Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        String email = emailText.getText().toString();
+                        /*String email = emailText.getText().toString();
                         member.setEmail(email);
-                        databaseReference.push().setValue(member);
+                        databaseReference.push().setValue(member);*/
                         Toast.makeText(getApplicationContext(),"yes",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(MainActivity.this,HomeActivity.class));
                     }

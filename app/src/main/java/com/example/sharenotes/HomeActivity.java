@@ -2,6 +2,7 @@ package com.example.sharenotes;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -27,6 +36,10 @@ public class HomeActivity extends AppCompatActivity {
     Button button,signOut;
     ImageView imageView;
     GoogleSignInClient googleSignInClient;
+    Members members;
+    DatabaseReference databaseReference;
+    String personEmail;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +50,10 @@ public class HomeActivity extends AppCompatActivity {
         name = (TextView) findViewById(R.id.messages);
         email = (TextView) findViewById(R.id.email_id);
         imageView = (ImageView) findViewById(R.id.person_image);
+        members = new Members();
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Members")
+        .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -44,18 +61,21 @@ public class HomeActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personName = acct.getDisplayName();
             //String personGivenName = acct.getGivenName();
             //String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
+            personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
             name.setText(personName);
             email.setText(personEmail);
             //imageView.setImageURI(personPhoto);
             Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
+        }
+        else {
+            personEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         }
 
         signOut.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +90,24 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        System.out.println(uid);
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference uidRef = rootRef.child("Members").child(uid);
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) {
+                    //create new user
+                    members.setEmail(personEmail);
+                    databaseReference.setValue(members);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        uidRef.addListenerForSingleValueEvent(eventListener);
 
     }
 
@@ -95,7 +133,10 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getApplicationContext(),"Signed Out Succesfully",Toast.LENGTH_SHORT).show();
-                        finish();
+                        //finish();
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+                        startActivity(intent);
                     }
                 });
     }

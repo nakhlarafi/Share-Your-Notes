@@ -18,6 +18,7 @@ public class MainHomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Home");
         setContentView(R.layout.activity_main_home_screen);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_id);
         recyclerView.setHasFixedSize(true);
