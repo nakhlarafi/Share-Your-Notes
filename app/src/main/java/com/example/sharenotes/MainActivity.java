@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.lang.reflect.Member;
 
 public class MainActivity extends AppCompatActivity {
-    EditText emailText,passText;
+    EditText emailText,passText,nameText;
     TextView signIn;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         emailText = (EditText) findViewById(R.id.editText);
         passText = (EditText) findViewById(R.id.editText2);
         signIn = (TextView) findViewById(R.id.sign_in);
+        nameText = (EditText) findViewById(R.id.editTextName);
         member = new Members();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Members");
 
@@ -63,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"Unsuccessful!",Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        /*String email = emailText.getText().toString();
-                        member.setEmail(email);
-                        databaseReference.push().setValue(member);*/
+                        Intent intent = new Intent(MainActivity.this,MainHomeScreen.class);
+                        intent.putExtra("name",nameText.getText().toString());
                         Toast.makeText(getApplicationContext(),"yes",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this,HomeActivity.class));
+                        startActivity(intent);
+                        //startActivity(new Intent(MainActivity.this,HomeActivity.class));
                     }
                 }
             });

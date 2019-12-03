@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null){
                     Toast.makeText(LoginActivity.this,"You are logged in",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(LoginActivity.this,HomeActivity.class);
+                    Intent i = new Intent(LoginActivity.this,MainHomeScreen.class);
                     startActivity(i);
                 }
                 else {
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else {
                         System.out.println("***********dddd*********");
-                        Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                        Intent intent = new Intent(LoginActivity.this,MainHomeScreen.class);
                         startActivity(intent);
                     }
                 }
@@ -204,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
                             /*member.setEmail(email);
                             databaseReference.push().setValue(member);*/
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                            Intent intent = new Intent(getApplicationContext(),MainHomeScreen.class);
                             startActivity(intent);
                             //updateUI(user);
                         } else {
@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+    /*private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
 
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.w("Error!", "signInResult:failed code=" + e.getStatusCode());
             //updateUI(null);
         }
-    }
+    }*/
 
 
 }

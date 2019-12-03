@@ -38,8 +38,9 @@ public class HomeActivity extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
     Members members;
     DatabaseReference databaseReference;
-    String personEmail;
+    String personEmail,personalName;
     private FirebaseAuth mAuth;
+    public static String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +53,12 @@ public class HomeActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.person_image);
         members = new Members();
         mAuth = FirebaseAuth.getInstance();
+        
+        Intent intent = getIntent();
+
         databaseReference = FirebaseDatabase.getInstance().getReference("Members")
         .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -67,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
             //String personGivenName = acct.getGivenName();
             //String personFamilyName = acct.getFamilyName();
             personEmail = acct.getEmail();
+            personalName = acct.getDisplayName();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
             name.setText(personName);
@@ -76,6 +81,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         else {
             personEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            personalName = intent.getStringExtra("name");
         }
 
         signOut.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +106,7 @@ public class HomeActivity extends AppCompatActivity {
                 if(!dataSnapshot.exists()) {
                     //create new user
                     members.setEmail(personEmail);
+                    members.setName(personalName);
                     databaseReference.setValue(members);
                 }
             }
