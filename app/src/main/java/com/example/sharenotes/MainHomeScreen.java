@@ -80,6 +80,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Members")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        DatabaseReference table =  databaseReference.child("Courses");
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
