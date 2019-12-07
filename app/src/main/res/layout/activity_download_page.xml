@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5"
+    tools:context=".DownloadPageActivity">
+
+    <TextView
+        android:id="@+id/course_id"
+        android:textColor="#757575"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textStyle="bold"
+        android:text="Course id"
+        android:textSize="48dp" />
+    <TextView
+        android:id="@+id/course_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Course Title:"
+        android:layout_below="@+id/course_id"
+        android:padding="16dp"
+        android:textSize="32dp"/>
+
+
+    <TextView
+        android:id="@+id/course_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="info"
+        android:textStyle="italic"
+        android:layout_below="@+id/course_text"
+        android:padding="16dp"
+        android:textSize="32dp"/>
+
+    <TextView
+        android:id="@+id/course_fac_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Faculty:"
+        android:layout_below="@+id/course_desc"
+        android:padding="16dp"
+        android:textSize="32dp"/>
+
+    <TextView
+        android:id="@+id/course_fac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="info"
+        android:textStyle="italic"
+        android:layout_below="@+id/course_fac_text"
+        android:padding="16dp"
+        android:textSize="24dp"/>
+
+    <TextView
+        android:id="@+id/uploader_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uploaded By:"
+        android:layout_below="@+id/course_fac"
+        android:textSize="32dp"
+        android:padding="16dp"/>
+
+    <TextView
+        android:id="@+id/uploader_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="info"
+        android:textStyle="italic"
+        android:layout_below="@+id/uploader_text"
+        android:textSize="24dp"
+        android:padding="16dp"/>
+
+    <ImageButton
+        android:layout_width="83dp"
+        android:layout_height="86dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/download_material_244"
+        android:onClick="downloadPdf" />
+
+
+</RelativeLayout>

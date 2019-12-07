@@ -314,6 +314,13 @@ public class ShareActivity extends AppCompatActivity {
         //}
     //}
 
+    /**
+     * Whenever the files are selected.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -439,24 +446,37 @@ public class ShareActivity extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.setProgress(0);
             progressDialog.show();
-            final String fileName = System.currentTimeMillis()+"";
+            final String fileName = System.currentTimeMillis()+".pdf";
+            final String filename1 = System.currentTimeMillis()+"";
             StorageReference storageReference = storage.getReference(); //returns path
             storageReference.child("Upload").child(fileName).putFile(pdfUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(); //returns the url of uploaded file
+                            //String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(); //returns the url of uploaded file
+
+                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!urlTask.isSuccessful());
+                            Uri downloadUrl = urlTask.getResult();
+
+                            final String url = String.valueOf(downloadUrl);
+
+
                             //DatabaseReference reference = database.getReference(); //returns the path of the root
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Members")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             final String courseNameStr = courseId.getText().toString();
                             final DatabaseReference table =  reference.child("Courses/"+courseNameStr);
+                            //final DatabaseReference tableCourse =  reference.child("Courses");
+                            //final DatabaseReference table =  tableCourse.push();
+
                             table.child("url").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
                                         progressDialog.dismiss();
                                         DatabaseReference courseRef = table;
+                                        //courseRef.child("course_id").setValue(courseId.getText().toString());
                                         courseRef.child("course_name").setValue(courseName.getText().toString());
                                         courseRef.child("faculty").setValue(facultyName.getText().toString());
                                         Toast.makeText(getApplicationContext(),"File Uploaded",Toast.LENGTH_SHORT).show();
