@@ -26,4 +26,11 @@ public class ChooseOptions extends AppCompatActivity {
         Intent intent = new Intent(this,RequestActivity.class);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed()
+    {
+        Intent myIntent = new Intent(ChooseOptions.this, MainHomeScreen.class);
+        startActivity(myIntent);
+        super.onBackPressed();
+    }
 }

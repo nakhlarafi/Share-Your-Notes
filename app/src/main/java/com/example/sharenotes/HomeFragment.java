@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -70,6 +71,10 @@ public class HomeFragment extends Fragment {
     AdapterForMainHome adapter;
     ArrayList<String> arrList;
 
+    private ExampleAdapter eadapter;
+    private List<ExampleItem> exampleList;
+    int tracker;
+
 
     @Nullable
     @Override
@@ -77,26 +82,21 @@ public class HomeFragment extends Fragment {
 
         //new
         parentHolder = inflater.inflate(R.layout.fragment_home,container,false);
-
+        tracker = 0;
         recyclerView = (RecyclerView) parentHolder.findViewById(R.id.recycler_view_id);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(cont));
+
+
         arrList = new ArrayList<>();
         //adapter = new AdapterForMainHome(cont,recyclerView,new ArrayList<String>(),new ArrayList<String>());
         setHasOptionsMenu(true);
+        exampleList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //called for individual items at the database reference
-                /*String filename = dataSnapshot.getKey();
-                String url = dataSnapshot.getValue(String.class); //url for file name
-                ((AdapterForMainHome)recyclerView.getAdapter()).update(filename,url);*/
-
-                /*for (DataSnapshot memberSnapshot : dataSnapshot.getChildren()){
-
-                }*/
 
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 //Log.d(TAG, "Value is: " + map);
@@ -145,7 +145,9 @@ public class HomeFragment extends Fragment {
                                     ++i;
                                 }
 
-                                ((AdapterForMainHome)recyclerView.getAdapter()).update(courseName ,arr[2],arr[1],arr[0],name);
+                                //((AdapterForMainHome)recyclerView.getAdapter()).update(courseName ,arr[2],arr[1],arr[0],name);
+                                exampleList.add(new ExampleItem(courseName, arr[2], arr[1],arr[0],name,tracker++));
+                                //((ExampleAdapter)recyclerView.getAdapter()).update(courseName ,arr[2],arr[1],arr[0],name);
                             }
 
 
@@ -159,8 +161,10 @@ public class HomeFragment extends Fragment {
                 }
                 //((AdapterForMainHome)recyclerView.getAdapter()).update("CSE" ,"kisu ekta","nakhla");
                 //adapter = new AdapterForMainHome(cont,recyclerView,arrList,new ArrayList<String>());
+                recyClerViewOperations();
 
             }
+
 
 
             @Override
@@ -182,19 +186,19 @@ public class HomeFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
         System.out.println(Arrays.toString(new ArrayList[]{arrList}));
-        adapter = new AdapterForMainHome(cont,recyclerView,new ArrayList<String>(),new ArrayList<String>());
+        //adapter = new AdapterForMainHome(cont,recyclerView,new ArrayList<String>(),new ArrayList<String>());
+        //eadapter = new ExampleAdapter(exampleList,cont,recyclerView);
 
         listItemsHomeHelpers = new ArrayList<>();
 
-        /*for (int i = 0;i<10;++i){
-            ListItemsHomeHelper listItem = new ListItemsHomeHelper("Heading"+(i+1),
-                    "Lorem Ipsum");
-            listItemsHomeHelpers.add(listItem);
-        }*/
+
+
         //adapter = new AdapterForMainHome(cont,recyclerView,new ArrayList<String>(),new ArrayList<String>());
-        recyclerView.setAdapter(adapter);
+        System.out.println("Recycler viewer wdikesdbcjbdvajbvjkbvjkbvdsk");
+        //recyclerView.setAdapter(eadapter);
 
         FloatingActionButton button = (FloatingActionButton) parentHolder.findViewById(R.id.add_btn);
         button.setOnClickListener(new View.OnClickListener()
@@ -223,14 +227,20 @@ public class HomeFragment extends Fragment {
 
     }
 
+    public void recyClerViewOperations(){
+        eadapter = new ExampleAdapter(exampleList,cont,recyclerView);
+        recyclerView.setAdapter(eadapter);
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
-
+        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.navigation_with_home, menu);
 
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -240,11 +250,11 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 System.out.println("kisu ekta ************");
-                adapter.getFilter().filter(s);
+                eadapter.getFilter().filter(s);
                 return false;
             }
         });
-        super.onCreateOptionsMenu(menu, inflater);
         //inflater.inflate(R.menu.navigation_with_home,menu);
     }
+
 }
