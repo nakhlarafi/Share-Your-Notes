@@ -1,9 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RequestActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/simple_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/course_id_text"
+        android:layout_margin="24dp"
+        android:text="Request a course PDF"
+        android:textSize="24dp" />
+
+
+    <TextView
+        android:id="@+id/course_id_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/course_id_info"
+        android:layout_margin="24dp"
+        android:text="Course Code?"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/course_id_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="32dp"
+        android:hint="Write the Code"
+        android:paddingTop="16dp"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/course_desc_text"
+        android:layout_below="@+id/course_id_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:text="Course Name?"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/course_desc_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/course_desc_text"
+        android:layout_marginHorizontal="32dp"
+        android:hint="Write the Name"
+        android:paddingTop="16dp"
+        android:textSize="16dp" />
+
+
+
+    <Button
+        android:textAppearance="@style/ThemeOverlay.AppCompat"
+        android:id="@+id/submit_button"
+        android:background="#424242"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Request"
+        android:textSize="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:padding="16dp"
+        android:layout_margin="32dp"
+        android:layout_marginBottom="24dp"
+        android:onClick="doRequest"/>
+
+
+
+</RelativeLayout>

@@ -79,7 +79,6 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         //new
         parentHolder = inflater.inflate(R.layout.fragment_home,container,false);
         tracker = 0;
@@ -140,7 +139,14 @@ public class HomeFragment extends Fragment {
                                 int i = 0;
                                 for (Map.Entry<String, String> entry3 : yourHashMap2.entrySet()) {
                                     //System.out.println(entry.getKey() + "/" + entry.getValue());
-                                    arr[i] = entry3.getValue();
+                                    if (entry3.getKey().equals("url")){
+                                        arr[2] = entry3.getValue();
+                                    }else if (entry3.getKey().equals("faculty")){
+                                        arr[1] = entry3.getValue();
+                                    } else if (entry3.getKey().equals("course_name")){
+                                        arr[0] = entry3.getValue();
+                                    }
+                                    //arr[i] = entry3.getValue();
                                     System.out.println(arr[i]+"*******"+i);
                                     ++i;
                                 }

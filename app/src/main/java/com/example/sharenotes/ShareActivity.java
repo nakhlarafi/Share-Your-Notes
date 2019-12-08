@@ -143,6 +143,7 @@ public class ShareActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         document.close();
+        Toast.makeText(getApplicationContext(),"PDF file created",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -411,6 +412,7 @@ public class ShareActivity extends AppCompatActivity {
                     }
                 }
                 document.close();
+                Toast.makeText(getApplicationContext(),"PDF file created",Toast.LENGTH_SHORT).show();
             }
         }
     }

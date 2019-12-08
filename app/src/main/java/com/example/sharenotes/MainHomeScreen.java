@@ -65,7 +65,7 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Home");
+        //setTitle("Home");
         setContentView(R.layout.activity_main_home_screen);
 
         //New addition
@@ -188,14 +188,17 @@ public class MainHomeScreen extends AppCompatActivity implements NavigationView.
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
+                setTitle("Home");
                 break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProfileFragment()).commit();
+                setTitle("Profile");
                 break;
             case R.id.nav_request:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new RequestFragment()).commit();
+                setTitle("Requests");
                 break;
             case R.id.nav_tools:
                 Toast.makeText(this,"Not available",Toast.LENGTH_SHORT).show();

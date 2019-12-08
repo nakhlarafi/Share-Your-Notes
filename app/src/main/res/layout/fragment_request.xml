@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/my_name"
-        android:layout_width="wrap_content"
+
+    <ListView
+        android:listSelector="#bcbcbc"
+        android:divider="#373737"
+        android:padding="8dp"
+        android:dividerHeight="2dp"
+        android:id="@+id/list_id"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Requests"
         android:textSize="24dp"
         android:layout_centerInParent="true"/>
 
-</RelativeLayout>
+</LinearLayout>
