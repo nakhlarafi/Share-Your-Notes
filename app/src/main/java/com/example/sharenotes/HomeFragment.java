@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -262,5 +263,6 @@ public class HomeFragment extends Fragment {
         });
         //inflater.inflate(R.menu.navigation_with_home,menu);
     }
+
 
 }

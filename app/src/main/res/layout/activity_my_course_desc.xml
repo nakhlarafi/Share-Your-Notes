@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyCourseDesc">
+
+    <TextView
+        android:id="@+id/course_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Course id"
+        android:textColor="#757575"
+        android:textSize="48dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/course_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/course_id"
+        android:padding="16dp"
+        android:text="Course Title:"
+        android:textSize="32dp" />
+
+
+    <TextView
+        android:id="@+id/course_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/course_text"
+        android:padding="16dp"
+        android:text="info"
+        android:textSize="32dp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/course_fac_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/course_desc"
+        android:padding="16dp"
+        android:text="Faculty:"
+        android:textSize="32dp" />
+
+    <TextView
+        android:id="@+id/course_fac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/course_fac_text"
+        android:padding="16dp"
+        android:text="info"
+        android:textSize="24dp"
+        android:textStyle="italic" />
+
+    <ImageButton
+        android:layout_width="83dp"
+        android:layout_height="86dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:onClick="downloadPdf"
+        android:background="@drawable/download_material_244" />
+
+    <ImageButton
+        android:layout_width="83dp"
+        android:layout_height="86dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/delete_327"
+        android:onClick="delete" />
+
+
+</RelativeLayout>

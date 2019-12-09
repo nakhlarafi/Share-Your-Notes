@@ -27,6 +27,7 @@ public class RequestFragment extends Fragment {
     View parentHolder;
     private ListView listView;
     DatabaseReference databaseReference;
+    ArrayAdapter arrayAdapter;
 
     @Nullable
     @Override
@@ -35,6 +36,7 @@ public class RequestFragment extends Fragment {
         listView = (ListView) parentHolder.findViewById(R.id.list_id);
 
         final ArrayList<String> arrayList = new ArrayList<>();
+        arrayAdapter = new ArrayAdapter(parentHolder.getContext(),android.R.layout.simple_list_item_1,arrayList);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Requests");
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -46,7 +48,7 @@ public class RequestFragment extends Fragment {
                     valueString = entry.getValue();
                     arrayList.add(valueString);
                 }
-                ArrayAdapter arrayAdapter = new ArrayAdapter(parentHolder.getContext(),android.R.layout.simple_list_item_1,arrayList);
+                arrayAdapter.notifyDataSetChanged();
                 listView.setAdapter(arrayAdapter);
 
             }

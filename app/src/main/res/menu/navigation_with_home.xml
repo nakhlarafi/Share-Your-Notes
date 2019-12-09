@@ -5,7 +5,7 @@
         android:id="@+id/action_search"
         android:orderInCategory="100"
         android:title="Search"
-        android:icon="@drawable/ic_search_white_24dp"
+        android:icon="@drawable/search24"
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="android.widget.SearchView"
         />
